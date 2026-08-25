@@ -52,7 +52,12 @@ int main(int argc, char *argv[])
         size_t bytes_read = fread(data, 1, size, in_file);
         fclose(in_file);
 
-        size_t out = 0;
+        data[0] = 'B';
+        data[1] = 'F';
+        data[2] = 'O';
+        data[3] = 'S';
+
+        size_t out = 4;
 
         for (size_t i = 0; i < bytes_read; i++) {
              unsigned char result = transform(data[i]);
