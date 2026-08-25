@@ -12,6 +12,11 @@ int main(int argc, char *argv[])
 	char *input_file = argv_input(argc,argv);
         char *output_file = argv_output(argc,argv);
 
+        if (input_file == NULL) {
+            printf("%s: no input files found\n",argv[0]);
+            return 1;
+        }
+
         int check_in = file_check(input_file);
         int check_out = file_check(output_file);
 

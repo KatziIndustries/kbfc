@@ -19,7 +19,9 @@ char *argv_input(int argc, char *argv[])
             wasdasho = 1;
         } else {
             if (wasdasho == 0) {
-                return argv[i];
+                if(strncmp("--", argv[i], strlen("--")) != 0) {
+                    return argv[i];
+                }
             }
             wasdasho = 0;
         }
