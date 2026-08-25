@@ -20,7 +20,10 @@ int main(int argc, char *argv[])
             return 1;
         }
 
-
+        if (check_out == 1) {
+            printf("%s cannot create %s: File already exists\n",argv[0],output_file);
+            return 1;
+        }
 
         //file_check
         printf("Finding files!\n");
