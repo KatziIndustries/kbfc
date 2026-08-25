@@ -1,7 +1,10 @@
+#include <ctype.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "argv.h"
 #include "file.h"
+#include "transform.h"
 
 int main(int argc, char *argv[])
 {
@@ -30,13 +33,49 @@ int main(int argc, char *argv[])
             return 1;
         }
 
-        //file_check
-        printf("Finding files!\n");
-        //transforming
-        printf("Converting files!\n");
-        //linking
-        printf("Combinding files!\n");
-        //create_output_file
-        printf("Creating Result!\n");
+        FILE *in_file = fopen(input_file, "rb");
+        if (!in_file) {
+            perror("fopen");
+            return 1;
+        }
+
+        fseek(in_file, 0, SEEK_END);
+        long size = ftell(in_file);
+        rewind(in_file);
+
+        char *data = malloc(size);
+        if (!data) {
+            fclose(in_file);
+            return 1;
+        }
+
+        size_t bytes_read = fread(data, 1, size, in_file);
+        fclose(in_file);
+
+        size_t out = 0;
+
+        for (size_t i = 0; i < bytes_read; i++) {
+             unsigned char result = transform(data[i]);
+
+             if (result != 0xff) {
+                 data[out++] = result;
+             }
+        }
+
+        bytes_read= out;
+
+        FILE *out_file = fopen(output_file, "wb");
+        if (!out_file) {
+            perror("fopen");
+            free(data);
+            return 1;
+        }
+
+        fwrite(data, 1, bytes_read, out_file);
+
+        fclose(out_file);
+        free(data);
+
+        return 0;
     }
 }
