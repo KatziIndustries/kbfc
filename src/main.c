@@ -11,6 +11,8 @@ int main(int argc, char *argv[])
 	char *input_files = argv_input(argc,argv);
         char *output_file = argv_output(argc,argv);
 
+        printf("%d|%s|%s",flags,input_files,output_file);
+
         //file_check
         printf("Finding files!\n");
         //transforming
