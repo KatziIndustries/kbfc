@@ -1,6 +1,7 @@
 #include <stdio.h>
 
 #include "argv.h"
+#include "file.h"
 
 int main(int argc, char *argv[])
 {
@@ -11,7 +12,15 @@ int main(int argc, char *argv[])
 	char *input_file = argv_input(argc,argv);
         char *output_file = argv_output(argc,argv);
 
-        printf("%d|%s|%s",flags,input_file,output_file);
+        int check_in = file_check(input_file);
+        int check_out = file_check(output_file);
+
+        if (check_in == 0) {
+            printf("%s cannot find %s: No such file or directory\n",argv[0],input_file);
+            return 1;
+        }
+
+
 
         //file_check
         printf("Finding files!\n");
