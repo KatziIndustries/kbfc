@@ -8,10 +8,10 @@ int main(int argc, char *argv[])
         printf("Usage: %s <file>\n",argv[0]);
     }else {
         int flags = argv_flags(argc,argv);
-	char *input_files = argv_input(argc,argv);
+	char *input_file = argv_input(argc,argv);
         char *output_file = argv_output(argc,argv);
 
-        printf("%d|%s|%s",flags,input_files,output_file);
+        printf("%d|%s|%s",flags,input_file,output_file);
 
         //file_check
         printf("Finding files!\n");
